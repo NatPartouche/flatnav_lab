@@ -37,16 +37,15 @@
         
         CGSize size = [[CCDirector sharedDirector] winSize];
        
-        image_black_white=[CCSprite spriteWithFile:@"dessin_Black_white.png"];
-        image_black_white.position=ccp(150,210);
-        [self addChild:image_black_white];        
-        
         image_color=[CCSprite spriteWithFile:@"dessin_Color.png"];
         image_color.position=ccp(150,210);
         [self addChild:image_color];
         
+        image_black_white=[CCSprite spriteWithFile:@"dessin_Black_white.png"];
+        image_black_white.position=ccp(150,210);
+        [self addChild:image_black_white];        
         
-        
+   
         sprites_array=[[NSMutableArray alloc]init ];
         sprite=[CCSprite spriteWithFile:@"Icon.png"];
         
@@ -101,22 +100,19 @@
     }
 }
 
-
+/*color="#ffffff"*/
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     NSLog(@"begin");
     UITouch *touch = [touches anyObject];
 
-    CGPoint location = [touch locationInView: [touch view]];
     CGPoint touchLocation = [self convertTouchToNodeSpace:touch];
 
-    [self getpixel:location];
+    [self add_color_to_sprite:touchLocation];
+    [self getpixel:touchLocation];
     [self selectSpriteForTouch:touchLocation];
-    
 }
 
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    
 
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView: [touch view]];
@@ -125,21 +121,33 @@
     if (is_moving)
     {
         is_moving.position=location;   
-    
     }
     else
     {
         NSLog(@"no sprive selected");
     }
 }
+-(void)add_color_to_sprite:(CGPoint)position
+{
+
+    if (CGRectContainsPoint(image_black_white.boundingBox, position))
+    {
+    CCSprite *tempsprite=[CCSprite spriteWithFile:@"Icon.png"];
+    tempsprite.position=position;
+    NSLog(@"add");
+    [self addChild:tempsprite];
+    }
+    
+}
+
 - (void)selectSpriteForTouch:(CGPoint)touchLocation {
     is_moving=nil;
+    
     for (int i=0;i<[sprites_array count];i++) {
         CCSprite *tempo=[sprites_array objectAtIndex:i];
 
         if (CGRectContainsPoint(tempo.boundingBox, touchLocation)) {            
             is_moving= [sprites_array objectAtIndex:i];
-            NSLog(@"i : %d",i);
             break;
         }
     }
