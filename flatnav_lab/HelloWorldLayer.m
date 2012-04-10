@@ -39,12 +39,12 @@
        
         image_color=[CCSprite spriteWithFile:@"dessin_Color.png"];
         image_color.position=ccp(150,210);
-        [self addChild:image_color];
         
         image_black_white=[CCSprite spriteWithFile:@"dessin_Black_white.png"];
         image_black_white.position=ccp(150,210);
         [self addChild:image_black_white];        
-        
+        [self addChild:image_color];
+
    
         sprites_array=[[NSMutableArray alloc]init ];
         sprite=[CCSprite spriteWithFile:@"Icon.png"];
@@ -75,8 +75,12 @@
         for (int i=0; i<[sprites_array count]; i++) {
             [self addChild:[sprites_array objectAtIndex:i]];
         }
-    
-    }
+        
+      
+        
+        
+        
+ }
 	return self;
 }
 
@@ -86,6 +90,7 @@
     location = [[CCDirector sharedDirector] convertToGL:location];
     glReadPixels(location.x,location.y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &pixelColor[0]);
     NSLog(@"%d %d %d",pixelColor[0],pixelColor[1],pixelColor[2]);
+    
     if ((pixelColor[0]==52) && (pixelColor[1]==131) && (pixelColor[2]==249))
     {
         NSLog(@"Bleu");
@@ -133,6 +138,10 @@
     if (CGRectContainsPoint(image_black_white.boundingBox, position))
     {
     CCSprite *tempsprite=[CCSprite spriteWithFile:@"Icon.png"];
+        
+    //tempsprite.boundingBox=CGRectMake(position.x, position.y, 10, 10);
+    tempsprite.color=ccc3(0, 0, 0);
+    
     tempsprite.position=position;
     NSLog(@"add");
     [self addChild:tempsprite];
