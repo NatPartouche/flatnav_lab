@@ -137,16 +137,20 @@
     NSLog(@"add");
     [self addChild:tempsprite];
     }
+    if (CGRectContainsPoint(image_color.boundingBox, position))
+    {
+        NSLog(@"image color");    
+    }
     
 }
 
-- (void)selectSpriteForTouch:(CGPoint)touchLocation {
+- (void)selectSpriteForTouch:(CGPoint)position {
     is_moving=nil;
     
     for (int i=0;i<[sprites_array count];i++) {
         CCSprite *tempo=[sprites_array objectAtIndex:i];
 
-        if (CGRectContainsPoint(tempo.boundingBox, touchLocation)) {            
+        if (CGRectContainsPoint(tempo.boundingBox, position)) {            
             is_moving= [sprites_array objectAtIndex:i];
             break;
         }

@@ -22,7 +22,7 @@
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) scene;
--(void)selectSpriteForTouch:(CGPoint)touchLocation;
+-(void)selectSpriteForTouch:(CGPoint)position;
 -(void)add_color_to_sprite:(CGPoint)position;
 
 @end
