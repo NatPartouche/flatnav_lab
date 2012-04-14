@@ -76,9 +76,7 @@
             [self addChild:[sprites_array objectAtIndex:i]];
         }
         
-      
-        
-        
+       
         
  }
 	return self;
@@ -115,8 +113,23 @@
     [self add_color_to_sprite:touchLocation];
     [self getpixel:touchLocation];
     [self selectSpriteForTouch:touchLocation];
+    
 }
+-(void)explosion{
 
+
+    zOrder=0;
+    CCParticleExplosion* explosion = [CCParticleExplosion node];
+    explosion.autoRemoveOnFinish = YES;
+    explosion.startSize = 5.0f;
+    explosion.endSize = 1.0f;
+    explosion.duration = 0.1f;
+    explosion.speed = 30.0f;
+    explosion.anchorPoint = ccp(0.5f,0.5f);
+    explosion.position=ccp(100,100);
+    [self addChild:explosion z:self.zOrder+1];
+
+}
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 
     UITouch *touch = [touches anyObject];
